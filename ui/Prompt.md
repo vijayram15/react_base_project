@@ -108,3 +108,33 @@ The children render prop must receive exactly this interface:
  * isSubmitting
  * isValid
  * errors
+
+
+Based on the blueprints you provided, specifically the layout hierarchy and visual shell diagrams, here is the detailed breakdown of the Main Dashboard Layout.
+You have designed a "Three-Division" Layout optimized for high-density financial data visibility. The layout consists of three fixed outer frames and a dynamic inner workspace.
+1. The Tower (Global Header)
+This is the fixed top bar that persists across all screens.
+ * Left Section: Contains the "Breadcrumb Toggle Trigger" (the path), the Organization Logo, and the current Screen Title (e.g., "Cash Withdrawal").
+ * Right Section: Holds the User Profile (Identity/Avatar) and Global Utility Icons like Settings and Logout.
+ * Function: It acts as the "Anchor" for the user, ensuring they always know where they are (Breadcrumbs) and who they are (Profile).
+2. The Navigation Drawer (Sidebar)
+This is the collateral menu on the left side.
+ * Behavior: It is "Toggleable." It can slide out to show menu items or hide completely to expand the "Main Shell" to full width.
+ * State: The open/closed state is managed by a React Context (often isSidebarOpen), allowing the Main Workspace to dynamically adjust its width class (workspace ${!isSidebarOpen ? 'full-width' : ''}).
+3. The Main Workspace (The "Main Shell")
+This is the central area where the specific feature (Screen) is rendered. It is subdivided into a strict vertical hierarchy to separate "Actions" from "Data".
+A. The Action Bar (Command Bar)
+Located immediately below the Tower, inside the workspace.
+ * Left (Inline Traverse): A horizontal "Secondary Menu" that allows fast switching between related screens (Contextual Menu).
+ * Right (Action Icons): Contains the primary triggers for the screen: Add (+), Import, Print, and Export.
+B. The Search Section (Accordion)
+This is the first collapsible panel in the main body.
+ * Content: Renders a "Subset" of the n fields (e.g., Date From, Date To, Reference No) specifically for filtering.
+ * Implementation: professionally named CriteriaPanel or SearchForm.
+C. The Results Section (Accordion)
+This is the second collapsible panel, taking up the remaining space.
+ * Content: The Data Grid showing records added via the Form.
+ * Implementation: professionally named DataViewPanel or ResultsGrid.
+D. The Entry Modal (Overlay)
+While not visible initially, this is the "Heart" of the app. Clicking Add (+) or Edit opens this overlay, which contains the Core Component rendering the full form.
+
